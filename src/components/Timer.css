@@ -1,0 +1,16 @@
+.row1,
+.row3 {
+  height: 55px;
+}
+
+.row2 {
+  height: 190px;
+}
+
+.timer-label {
+  font-size: 1.3rem;
+}
+
+.time-left {
+  font-size: 5rem;
+}

@@ -1,0 +1,11 @@
+.label {
+  font-size: 2rem;
+}
+
+.length {
+  width: 3rem;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 1.5rem;
+}
