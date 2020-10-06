@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-use-before-define
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -22,7 +23,7 @@ const MIN_MINUTE = 1;
 const SESSION_LABEL = 'Session';
 const BREAK_LABEL = 'Break';
 
-function App() {
+const App: React.FC = () => {
   const [breakTime, setBreakTime] = useState(DEFAULT_BREAK_MINUTE);
   const [sessionTime, setSessionTime] = useState(DEFAULT_SESSION_MINUTE);
   const [timerLabel, setTimerLabel] = useState(SESSION_LABEL);
@@ -30,32 +31,32 @@ function App() {
   const [isActive, setIsActive] = useState(false);
 
   const playBeep = () => {
-    const beep = document.getElementById('beep');
+    const beep = document.getElementById('beep') as HTMLAudioElement;
     beep.play();
   };
 
   const stopBeep = () => {
-    const beep = document.getElementById('beep');
+    const beep = document.getElementById('beep') as HTMLAudioElement;
     beep.currentTime = 0;
     beep.pause();
   };
 
   useEffect(() => {
-    let id = null;
+    let id = 0;
 
     if (isActive && timeLeft !== 0) {
-      id = setInterval(() => {
+      id = window.setInterval(() => {
         setTimeLeft((t) => t - 1);
       }, 1000);
     } else if (isActive && timeLeft === 0 && timerLabel === SESSION_LABEL) {
       playBeep();
-      id = setTimeout(() => {
+      id = window.setTimeout(() => {
         setTimerLabel(BREAK_LABEL);
         setTimeLeft(breakTime * 60);
       }, 1000);
     } else if (isActive && timeLeft === 0 && timerLabel === BREAK_LABEL) {
       playBeep();
-      id = setTimeout(() => {
+      id = window.setTimeout(() => {
         setTimerLabel(SESSION_LABEL);
         setTimeLeft(sessionTime * 60);
       }, 1000);
@@ -75,18 +76,18 @@ function App() {
     stopBeep();
   };
 
-  const formatTime = (time) => {
+  const formatTime = (time: number) => {
     return time < 10 ? `0${time.toString()}` : time.toString();
   };
 
-  const secondsToString = (seconds) => {
+  const secondsToString = (seconds: number) => {
     const minute = formatTime(Math.floor(seconds / 60));
-    const second = formatTime(seconds % 60, 10);
+    const second = formatTime(seconds % 60);
 
     return `${minute}:${second}`;
   };
 
-  const calculateTime = (minute) => {
+  const calculateTime = (minute: number) => {
     if (minute < MIN_MINUTE) {
       return MIN_MINUTE;
     }
@@ -96,11 +97,11 @@ function App() {
     return minute;
   };
 
-  const onBreakButtonClick = (minute) => {
+  const onBreakButtonClick = (minute: number) => {
     setBreakTime(calculateTime(breakTime + minute));
   };
 
-  const onSessionButtonClick = (minute) => {
+  const onSessionButtonClick = (minute: number) => {
     const newSessionTime = calculateTime(sessionTime + minute);
     setSessionTime(newSessionTime);
     setTimeLeft(newSessionTime * 60);
@@ -137,6 +138,6 @@ function App() {
       </Row>
     </Container>
   );
-}
+};
 
 export default App;
