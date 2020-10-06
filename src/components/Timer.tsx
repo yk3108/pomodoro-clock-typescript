@@ -47,7 +47,7 @@ const Timer: React.FC<Props> = (props: Props) => {
               id="start_stop"
               className="m-1"
               variant="outline-primary"
-              onClick={() => onStartStopButtonClick()}
+              onClick={onStartStopButtonClick}
             >
               <FontAwesomeIcon icon={isActive ? 'pause' : 'play'} />
             </Button>
@@ -55,7 +55,7 @@ const Timer: React.FC<Props> = (props: Props) => {
               id="reset"
               className="m-1"
               variant="outline-primary"
-              onClick={() => onResetButtonClick()}
+              onClick={onResetButtonClick}
             >
               <FontAwesomeIcon icon="undo" />
             </Button>
