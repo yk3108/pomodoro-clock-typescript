@@ -1,13 +1,16 @@
+// eslint-disable-next-line no-use-before-define
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Col, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './Controls.css';
 
-export default function Controls(props) {
-  /**
-   * @type {{type: string, time: string, onClick: function}}
-   */
+type Props = {
+  type: string;
+  time: number;
+  onClick: (minute: number) => void;
+};
+
+const Controls: React.FC<Props> = (props: Props) => {
   const { type, time, onClick } = props;
   const labelType = type.charAt(0).toUpperCase() + type.slice(1);
   const variant = 'outline-primary';
@@ -36,10 +39,6 @@ export default function Controls(props) {
       </Button>
     </Col>
   );
-}
-
-Controls.propTypes = {
-  type: PropTypes.string.isRequired,
-  time: PropTypes.number.isRequired,
-  onClick: PropTypes.func.isRequired,
 };
+
+export default Controls;
